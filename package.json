@@ -24,6 +24,7 @@
     "@dfinity/principal": "^2.3.0",
     "bech32": "^2.0.0",
     "bn.js": "^5.2.1",
+    "crypto": "^1.0.1",
     "elliptic": "^6.6.1"
   },
   "devDependencies": {
