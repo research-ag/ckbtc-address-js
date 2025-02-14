@@ -1,13 +1,13 @@
 {
-  "name": "ckbtc-address-js",
-  "version": "0.0.1",
+  "name": "@research-ag/ckbtc-address-js",
+  "version": "0.0.2",
   "description": "An algorithm which calculates BTC address for deposits to ckBTC minter",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "prepublish": "rm -rf ./dist/ && npm run build",
+    "prepack": "rm -rf ./dist/ && npm run build",
     "build": "tsc"
   },
   "type": "module",
