@@ -7,7 +7,7 @@ export type XPubKey = {
 };
 
 export type Icrc1Account = {
-  owner: Principal;
+  owner: Principal | string;
   subaccount: Uint8Array | null;
 };
 
@@ -21,12 +21,14 @@ export class Minter {
   }
 
   public depositAddr(account: Icrc1Account): string {
-    let key = this.pk.derivePath([account.owner.toUint8Array(), account.subaccount || new Uint8Array(32)]);
+    let ownerP = typeof account.owner === 'string' ? Principal.fromText(account.owner) : account.owner;
+    let key = this.pk.derivePath([ownerP.toUint8Array(), account.subaccount || new Uint8Array(32)]);
     return key.pubkeyAddress();
   }
 
   public depositAddrFunc(owner: Icrc1Account['owner']): (subaccount: Icrc1Account['subaccount']) => string {
-    let pk2 = this.pk.deriveChild(owner.toUint8Array());
+    let ownerP = typeof owner === 'string' ? Principal.fromText(owner) : owner;
+    let pk2 = this.pk.deriveChild(ownerP.toUint8Array());
     return subaccount => pk2.deriveChild(subaccount || new Uint8Array(32)).pubkeyAddress();
   }
 }

@@ -18,7 +18,7 @@ describe('Minter', () => {
   };
 
   // get deposit address for a user of the auction backend
-  let f_3gvau = minter.depositAddrFunc(Principal.fromText("3gvau-pyaaa-aaaao-qa7kq-cai"));
+  let f_3gvau = minter.depositAddrFunc("3gvau-pyaaa-aaaao-qa7kq-cai");
   let f_farwr = minter.depositAddrFunc(Principal.fromText("farwr-jqaaa-aaaao-qj4ya-cai"));
 
   test('3gvau anonymous', () => {
