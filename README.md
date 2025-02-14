@@ -14,7 +14,7 @@ The module derives SegWit (P2WPKH) Bitcoin addresses for depositing BTC into a c
 ## Installation
 
 ```sh
-npm install ckbtc-address-js --save
+npm install @research-ag/ckbtc-address-js --save
 ```
 
 ## Usage
@@ -22,14 +22,16 @@ npm install ckbtc-address-js --save
 ### Importing the Module
 
 ```typescript
-import { Minter } from "ckbtc-address-js";
+import { Minter, CKBTC_MINTER_MAINNET_XPUBKEY } from "@research-ag/ckbtc-address-js";
 ```
 
 ### Creating a Minter Instance
 
 ```typescript
-let minter = new Minter(xpub);
+let minter = new Minter(CKBTC_MINTER_MAINNET_XPUBKEY);
 ```
+
+Note: `CKBTC_MINTER_MAINNET_XPUBKEY` is a key for mainnet ckBTC minter
 
 ### Deriving a BTC Deposit Address
 

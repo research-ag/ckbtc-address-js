@@ -2,8 +2,8 @@ import { Principal } from '@dfinity/principal';
 import { ExtendedPublicKey } from './bip32';
 
 export type XPubKey = {
-  readonly publicKey: Buffer;
-  readonly chainCode: Buffer;
+  readonly publicKey: Uint8Array;
+  readonly chainCode: Uint8Array;
 };
 
 export type Icrc1Account = {
@@ -15,9 +15,7 @@ export class Minter {
   public readonly pk: ExtendedPublicKey;
 
   constructor(public readonly key: XPubKey) {
-    this.pk = new ExtendedPublicKey(Buffer.from(this.key.publicKey), Buffer.from(this.key.chainCode)).deriveChild(
-      new Uint8Array([1]),
-    );
+    this.pk = new ExtendedPublicKey(this.key.publicKey, this.key.chainCode).deriveChild(new Uint8Array([1]));
   }
 
   public depositAddr(account: Icrc1Account): string {

@@ -1,14 +1,14 @@
-import { createHash, createHmac } from 'crypto';
 import { bech32 } from 'bech32';
 import { ec as EC } from 'elliptic';
 import { BN } from 'bn.js';
+import { hmac, ripemd, sha, sha256 } from 'hash.js';
 
 const ec = new EC('secp256k1');
 
 export class ExtendedPublicKey {
   constructor(
-    public readonly key: Buffer,
-    public readonly chaincode: Buffer,
+    public readonly key: Uint8Array,
+    public readonly chaincode: Uint8Array,
   ) {}
 
   derivePath(path: Uint8Array[]): ExtendedPublicKey {
@@ -20,23 +20,24 @@ export class ExtendedPublicKey {
   }
 
   deriveChild(index: Uint8Array): ExtendedPublicKey {
-    const hmac = createHmac('sha512', this.chaincode);
-    hmac.update(Buffer.concat([new Uint8Array(this.key), index]));
-    const fullNode = hmac.digest();
+    const fullNode = hmac(sha.sha512 as any, this.chaincode)
+      .update(new Uint8Array([...this.key, ...index]))
+      .digest();
+
     const left = fullNode.slice(0, 32);
     const right = fullNode.slice(32, 64);
-    const multiplicand = BigInt(`0x${Buffer.from(left).toString('hex')}`);
+    const multiplicand = BigInt('0x' + [...left].map(b => b.toString(16).padStart(2, '0')).join(''));
     const curveN = ec.curve.n;
     if (multiplicand >= curveN) {
       throw new Error('Derivation failed');
     }
     const parentKey = ec.keyFromPublic(this.key);
     const derivedPoint = ec.g.mul(new BN(multiplicand.toString(16), 16)).add(parentKey.getPublic());
-    return new ExtendedPublicKey(Buffer.from(derivedPoint.encodeCompressed()), right);
+    return new ExtendedPublicKey(derivedPoint.encodeCompressed(), new Uint8Array(right));
   }
 
   pubkeyAddress(): string {
-    const hash = createHash('ripemd160').update(createHash('sha256').update(this.key).digest()).digest();
+    let hash = ripemd.ripemd160().update(sha256().update(this.key).digest()).digest();
     return bech32.encode('bc', new Uint8Array([0, ...bech32.toWords(hash)]));
   }
 }
