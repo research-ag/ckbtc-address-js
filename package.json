@@ -5,7 +5,6 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "start": "node main.js",
     "test": "jest",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "prepublish": "rm -rf ./dist/ && npm run build",

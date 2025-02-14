@@ -28,7 +28,7 @@ import { Minter } from "ckbtc-address-js";
 ### Creating a Minter Instance
 
 ```typescript
-let minter = Minter(xpub);
+let minter = new Minter(xpub);
 ```
 
 ### Deriving a BTC Deposit Address
