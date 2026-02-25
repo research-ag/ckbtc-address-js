@@ -1,6 +1,6 @@
 {
   "name": "@research-ag/ckbtc-address-js",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "An algorithm which calculates BTC address for deposits to ckBTC minter",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
