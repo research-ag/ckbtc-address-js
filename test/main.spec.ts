@@ -1,5 +1,5 @@
 import { CKBTC_MINTER_MAINNET_XPUBKEY, Minter } from "../src";
-import { Principal } from "@dfinity/principal";
+import { Principal } from "@icp-sdk/core/principal";
 
 describe('Minter', () => {
 

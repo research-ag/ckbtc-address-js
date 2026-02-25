@@ -1,6 +1,6 @@
 {
   "name": "@research-ag/ckbtc-address-js",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "An algorithm which calculates BTC address for deposits to ckBTC minter",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/research-ag/ckbtc-address-js#readme",
   "dependencies": {
-    "@dfinity/principal": "^2.3.0",
+    "@icp-sdk/core": "^5.0.0",
     "bech32": "^2.0.0",
     "bn.js": "^5.2.1",
     "elliptic": "^6.6.1",
@@ -46,7 +46,10 @@
     "rootDir": ".",
     "testRegex": "\\.spec\\.ts$",
     "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
+      "^.+\\.(t|j)s$": [
+        "ts-jest",
+        { "tsconfig": "tsconfig.spec.json" }
+      ]
     },
     "collectCoverageFrom": [
       "**/*.ts",
