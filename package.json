@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/research-ag/ckbtc-address-js#readme",
   "dependencies": {
-    "@dfinity/principal": "^2.3.0",
+    "@icp-sdk/core": "^5.0.0",
     "bech32": "^2.0.0",
     "bn.js": "^5.2.1",
     "elliptic": "^6.6.1",
